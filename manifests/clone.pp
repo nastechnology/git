@@ -1,4 +1,4 @@
-class git::clone ($repo, $path, $username='www-data'){
+class git::clone ($repo, $path, $host='bitbucket.org',$owner='www-data', $username="", $password=""){
 
   package { 'git':
     ensure => installed,
@@ -6,11 +6,11 @@ class git::clone ($repo, $path, $username='www-data'){
 
   vcsrepo { "${path}/${repo}":
     ensure   => latest,
-    owner    => $username,
-    group    => $username,
+    owner    => $owner,
+    group    => $owner,
     provider => git,
     require  => [ Package['git'] ],
-    source   => "https://bitbucket.org/mrmyers/${repo}.git",
+    source   => "https://${host}/mrmyers/${repo}.git",
     revision => 'master',
   }
 } 
